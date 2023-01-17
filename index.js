@@ -55,6 +55,9 @@ var util = {
     applyEventMap: applyEventMap,
     // svg
     translateString: translateString,
+    // test
+    test: test,
+    testList: testList
 }
 
 // type check
@@ -76,14 +79,16 @@ function notUndefined(obj) {
  * obj가 null일 경우 참이다.
  */
 function isNull(obj) {
-    return (typeof obj === 'null');
+    //return (typeof obj === 'null');
+    return obj === null;
 }
 
 /**
  * obj가 null이 아닐 경우 참이다.
  */
 function notNull(obj) {
-    return (typeof obj !== 'null');
+    //return (typeof obj !== 'null');
+    return obj !== null;
 }
 
 /**
@@ -517,6 +522,26 @@ function applyEventMap(domNode, eventMap) {
  */
 function translateString(translateX, translateY) {
     return "translate(" + translateX + "," + translateY + ")";
+}
+
+// test
+function test(act) {
+    const colorRed = () => '\x1b[91m';
+    const colorBlue = () => '\x1b[92m';
+    const colorWhite = () => '\x1b[97m';
+    const assertColor = (value) => value ? colorBlue() : colorRed();
+
+    const result = act();
+    console.log( act.name + ': ' + assertColor(result) + result + colorWhite());
+    return result;
+}
+
+function testList() {
+    return !!slice(arguments, 0).reduce( (acc,arg) => acc & test(arg), true);
+}
+
+function slice(args, index) {
+    return Array.prototype.slice.call(args, index);
 }
 
 module.exports = util;
