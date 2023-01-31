@@ -29,6 +29,7 @@ var util = {
     // function
     applyFunction: applyFunction,
     isFunctionRun: isFunctionRun,
+    params: params,
     // control structure
     switch: switchCase,
     switchRun: switchRun,
@@ -235,6 +236,10 @@ function applyFunction(obj, args, thisArg) {
 
 function isFunctionRun(obj) {
     return isFunction(obj) ? obj() : obj;
+}
+
+function params(args, index) {
+    return Array.prototype.slice.call(args, index);
 }
 
 // control
